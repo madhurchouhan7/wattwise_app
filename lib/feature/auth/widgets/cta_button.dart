@@ -16,6 +16,7 @@ class CtaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: onPressed,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
