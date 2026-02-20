@@ -178,7 +178,7 @@ class SignInPage extends StatelessWidget {
                     // CTA : sign in
                     CtaButton(text: 'Sign In', onPressed: () {}),
 
-                    Spacer(),
+                    SizedBox(height: fontSize * 1),
 
                     // dont have an account? sign up
                     Row(

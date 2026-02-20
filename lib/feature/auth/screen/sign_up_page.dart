@@ -293,7 +293,7 @@ class SignUpPage extends StatelessWidget {
                     // Create Account button
                     CtaButton(text: 'Create Account', onPressed: () {}),
 
-                    SizedBox(height: fontSize * 2),
+                    SizedBox(height: fontSize * 1),
 
                     // Already have an account? Sign In
                     Row(
