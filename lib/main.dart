@@ -3,6 +3,7 @@ import 'package:wattwise_app/core/app_theme.dart';
 import 'package:wattwise_app/feature/auth/screen/sign_in_page.dart';
 import 'package:wattwise_app/feature/home/screens/home.dart';
 import 'package:wattwise_app/feature/splash_screen/splash_screen.dart';
+import 'package:wattwise_app/feature/welcome/screens/welcome_screen.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       title: 'WattWise',
-      home: SignInPage(),
+      home: WelcomeScreen(),
     );
   }
 }
