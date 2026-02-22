@@ -2,19 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wattwise_app/feature/auth/widgets/cta_button.dart';
-import 'package:wattwise_app/feature/on_boarding/widget/family_type.dart';
 import 'package:wattwise_app/feature/on_boarding/widget/people_select.dart';
-import 'package:wattwise_app/feature/on_boarding/widget/use_my_current_location.dart';
 import 'package:wattwise_app/utils/svg_assets.dart';
 
-class OnBoardingPage3 extends StatelessWidget {
+class OnBoardingPage3 extends StatefulWidget {
   final PageController pageController;
   const OnBoardingPage3({super.key, required this.pageController});
+
+  @override
+  State<OnBoardingPage3> createState() => _OnBoardingPage3State();
+}
+
+class _OnBoardingPage3State extends State<OnBoardingPage3> {
+  int _peopleCount = 2;
+  String? _selectedFamilyType;
+  String? _selectedHouseType;
+
+  final List<String> _familyOptions = [
+    'Just Me',
+    'Small Family',
+    'Large Family',
+    'Join Family',
+  ];
+
+  void _increment() {
+    setState(() {
+      _peopleCount++;
+    });
+  }
+
+  void _decrement() {
+    if (_peopleCount > 1) {
+      setState(() {
+        _peopleCount--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final fontSize = width * 0.05;
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Column(
       children: [
         // fixed row at the top
@@ -26,11 +56,11 @@ class OnBoardingPage3 extends StatelessWidget {
           child: Row(
             children: [
               // TODO: Add Progress Indicator here
-              Placeholder(fallbackHeight: 10, fallbackWidth: 100),
+              const Placeholder(fallbackHeight: 10, fallbackWidth: 100),
 
-              Spacer(),
+              const Spacer(),
 
-              TextButton(onPressed: () {}, child: Text('Skip Setup')),
+              TextButton(onPressed: () {}, child: const Text('Skip Setup')),
             ],
           ),
         ),
@@ -50,7 +80,7 @@ class OnBoardingPage3 extends StatelessWidget {
                       Text(
                         'Step 3 of 5',
                         style: GoogleFonts.poppins(
-                          color: Theme.of(context).primaryColor,
+                          color: primaryColor,
                           fontWeight: FontWeight.w600,
                           fontSize: fontSize * 0.65,
                         ),
@@ -91,11 +121,12 @@ class OnBoardingPage3 extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          PeopleSelect(text: '-'),
+                          PeopleSelect(text: '-', onTap: _decrement),
+
                           Column(
                             children: [
                               Text(
-                                '2',
+                                '$_peopleCount',
                                 style: GoogleFonts.poppins(
                                   fontSize: fontSize * 3,
                                   fontWeight: FontWeight.bold,
@@ -112,57 +143,53 @@ class OnBoardingPage3 extends StatelessWidget {
                               ),
                             ],
                           ),
-                          PeopleSelect(text: '+'),
+                          PeopleSelect(text: '+', onTap: _increment),
                         ],
                       ),
 
                       SizedBox(height: width * 0.05),
 
                       Wrap(
-                        spacing: 30,
+                        spacing: 12, // More compact spacing
+                        runSpacing: 10,
                         alignment: WrapAlignment.center,
-                        children: [
-                          Chip(
+                        children: _familyOptions.map((option) {
+                          final isSelected = _selectedFamilyType == option;
+                          return ChoiceChip(
+                            label: Text(option),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              setState(() {
+                                _selectedFamilyType = selected ? option : null;
+                              });
+                            },
                             labelStyle: GoogleFonts.poppins(
                               fontSize: fontSize * 0.75,
-                              color: Colors.black,
+                              color: isSelected
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.black87,
+                              fontWeight: isSelected
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
                             ),
-                            label: Text('Just Me'),
+                            selectedColor: Colors.blueGrey[50],
+                            backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: isSelected
+                                    ? primaryColor
+                                    : Colors.grey.shade300,
+                                width: 1.5,
+                              ),
                             ),
-                          ),
-                          Chip(
-                            labelStyle: GoogleFonts.poppins(
-                              fontSize: fontSize * 0.75,
-                              color: Colors.black,
+                            showCheckmark: false, // Cleaner look as requested
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
                             ),
-                            label: Text('Small Family'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          Chip(
-                            labelStyle: GoogleFonts.poppins(
-                              fontSize: fontSize * 0.75,
-                              color: Colors.black,
-                            ),
-                            label: Text('Large Family'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          Chip(
-                            labelStyle: GoogleFonts.poppins(
-                              fontSize: fontSize * 0.75,
-                              color: Colors.black,
-                            ),
-                            label: Text('Join Family'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ],
+                          );
+                        }).toList(),
                       ),
 
                       SizedBox(height: width * 0.07),
@@ -179,20 +206,34 @@ class OnBoardingPage3 extends StatelessWidget {
                             ),
                           ),
 
+                          const SizedBox(height: 10),
+
                           DropdownButtonFormField<String>(
-                            items: ['1', '2', '3', '4', '5+']
-                                .map(
-                                  (state) => DropdownMenuItem(
-                                    value: state,
-                                    child: Text(state),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (value) {},
-                            hint: Text('HOUSE TYPE'),
+                            initialValue: _selectedHouseType,
+                            items:
+                                ['Apartment', 'Bungalow', 'Independent House']
+                                    .map(
+                                      (type) => DropdownMenuItem(
+                                        value: type,
+                                        child: Text(type),
+                                      ),
+                                    )
+                                    .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedHouseType = value;
+                              });
+                            },
+                            hint: const Text('HOUSE TYPE'),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: width * 0.04,
@@ -200,8 +241,6 @@ class OnBoardingPage3 extends StatelessWidget {
                               ),
                             ),
                           ),
-
-                          SizedBox(height: width * 0.05),
 
                           SizedBox(height: width * 0.05),
                         ],
@@ -217,19 +256,20 @@ class OnBoardingPage3 extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(width * 0.05),
                   decoration: BoxDecoration(
+                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blueGrey.withOpacity(0.1),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 20,
-                        offset: Offset(0, -2),
+                        offset: const Offset(0, -5),
                       ),
                     ],
                   ),
                   child: CtaButton(
                     text: 'Continue',
                     onPressed: () {
-                      pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
+                      widget.pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                       );
                     },

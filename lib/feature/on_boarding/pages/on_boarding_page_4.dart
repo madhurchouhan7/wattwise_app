@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wattwise_app/feature/auth/widgets/cta_button.dart';
 import 'package:wattwise_app/feature/on_boarding/provider/selected_appliance_notifier.dart';
-import 'package:wattwise_app/feature/on_boarding/widget/family_type.dart';
-import 'package:wattwise_app/feature/on_boarding/widget/people_select.dart';
 import 'package:wattwise_app/feature/on_boarding/widget/select_appliances.dart';
-import 'package:wattwise_app/feature/on_boarding/widget/use_my_current_location.dart';
 import 'package:wattwise_app/utils/svg_assets.dart';
 
 class OnBoardingPage4 extends ConsumerWidget {
@@ -247,10 +243,10 @@ class OnBoardingPage4 extends ConsumerWidget {
                         ],
                       ),
                       child: CtaButton(
-                        text: selectedCount > 0 
-                            ? 'Continue, $selectedCount Selected' 
+                        text: selectedCount > 0
+                            ? 'Continue, $selectedCount Selected'
                             : 'Select at least one',
-                        onPressed: selectedCount > 0 
+                        onPressed: selectedCount > 0
                             ? () {
                                 pageController.nextPage(
                                   duration: Duration(milliseconds: 300),
