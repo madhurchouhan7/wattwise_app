@@ -128,7 +128,7 @@ class OnBoardingPage1 extends StatelessWidget {
                     ],
                   ),
                   child: CtaButton(
-                    text: 'Lets GO',
+                    text: 'Lets Go',
                     onPressed: () {
                       pageController.nextPage(
                         duration: Duration(milliseconds: 300),

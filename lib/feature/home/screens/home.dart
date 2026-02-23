@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 // Import your theme
 
 class Home extends StatefulWidget {
@@ -21,9 +22,9 @@ class _HomeState extends State<Home> {
           children: [
             Text(
               "Welcome back,",
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.grey,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.grey),
             ),
             const Text(
               "Alex Johnson", // We will make this dynamic later
@@ -56,33 +57,39 @@ class _HomeState extends State<Home> {
       ),
 
       // 3. Bottom Navigation Bar (Matches your PDF Design)
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() => _currentIndex = index);
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
+      bottomNavigationBar: SalomonBottomBar(
+        margin: EdgeInsets.all(20),
+        itemPadding: EdgeInsets.all(18),
+        curve: Curves.easeInOut,
+        items: [
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.home),
+            title: const Text("Home"),
+            selectedColor: Colors.blue,
           ),
-          NavigationDestination(
-            icon: Icon(Icons.analytics_outlined),
-            selectedIcon: Icon(Icons.analytics),
-            label: 'Insights',
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.bar_chart),
+            title: const Text("Analytics"),
+            selectedColor: Colors.green,
           ),
-          NavigationDestination(
-            icon: Icon(Icons.receipt_long_outlined),
-            selectedIcon: Icon(Icons.receipt_long),
-            label: 'Bills',
+
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.energy_savings_leaf),
+            title: const Text("Energy Tips"),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
+
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.settings),
+            title: const Text("Settings"),
+            selectedColor: Colors.orange,
           ),
         ],
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }

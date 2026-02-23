@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wattwise_app/feature/home/screens/home.dart';
 import 'package:wattwise_app/feature/on_boarding/model/appliance_model.dart';
 import 'package:wattwise_app/feature/on_boarding/model/on_boarding_state.dart';
 import 'package:wattwise_app/feature/on_boarding/provider/selected_appliance_notifier.dart';
@@ -41,9 +42,7 @@ class _OnBoardingPage5State extends ConsumerState<OnBoardingPage5> {
     ApplianceLocalState state,
   ) {
     final isSelected = state.usageLevel == option.label;
-    final primaryColor = const Color(
-      0xFF5568FE,
-    ); // Exact blue from standard app
+    final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Expanded(
       child: GestureDetector(
@@ -485,10 +484,14 @@ class _OnBoardingPage5State extends ConsumerState<OnBoardingPage5> {
                       ? () {
                           playConfetti();
                           notifier.finishSetup(selectedAppliances);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF5568FE),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     disabledBackgroundColor: Colors.grey.shade300,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
