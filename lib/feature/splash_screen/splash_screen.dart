@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart'; // <--- MUST BE IMPORTED
-import 'package:wattwise_app/feature/home/screens/home.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:wattwise_app/feature/root/screens/root_screen.dart'; // <--- MUST BE IMPORTED
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => const RootScreen()),
         );
       }
     });

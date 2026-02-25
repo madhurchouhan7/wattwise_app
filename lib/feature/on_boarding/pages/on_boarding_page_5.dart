@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wattwise_app/feature/home/screens/home.dart';
 import 'package:wattwise_app/feature/on_boarding/model/appliance_model.dart';
 import 'package:wattwise_app/feature/on_boarding/model/on_boarding_state.dart';
 import 'package:wattwise_app/feature/on_boarding/provider/selected_appliance_notifier.dart';
 import 'package:wattwise_app/feature/on_boarding/provider/on_boarding_page_5_notifier.dart';
+import 'package:wattwise_app/feature/root/screens/root_screen.dart';
 
 class OnBoardingPage5 extends ConsumerStatefulWidget {
   const OnBoardingPage5({super.key});
@@ -486,7 +486,9 @@ class _OnBoardingPage5State extends ConsumerState<OnBoardingPage5> {
                           notifier.finishSetup(selectedAppliances);
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => Home()),
+                            MaterialPageRoute(
+                              builder: (context) => RootScreen(),
+                            ),
                           );
                         }
                       : null,
