@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:wattwise_app/core/colors.dart';
+import 'package:wattwise_app/feature/bill/screen/add_bill_screen.dart';
 import 'package:wattwise_app/feature/bill/widgets/bill_header.dart';
 import 'package:wattwise_app/feature/bill/widgets/current_cycle_card.dart';
 import 'package:wattwise_app/feature/bill/widgets/bill_history_tile.dart';
@@ -136,7 +137,21 @@ class BillScreen extends ConsumerWidget {
       ),
       floatingActionButton:
           FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                  child: AddBillScreen(),
+                ),
+              );
+            },
             backgroundColor: const Color(0xFF1E60F2),
             elevation: 8,
             //shadowColor: const Color(0xFF1E60F2).withAlpha(100),
