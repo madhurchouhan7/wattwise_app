@@ -2,189 +2,131 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:wattwise_app/core/colors.dart';
+import 'package:wattwise_app/feature/profile/widgets/profile_header.dart';
+import 'package:wattwise_app/feature/profile/widgets/profile_stats_card.dart';
+import 'package:wattwise_app/feature/profile/widgets/profile_menu_section.dart';
+import 'package:wattwise_app/feature/profile/widgets/logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _buildProfileHeader().animate().fade().scale(
-            begin: const Offset(0.9, 0.9),
-          ),
-
-          const SizedBox(height: 32),
-
-          _buildOptionsList()
-              .animate()
-              .fade(delay: 200.ms)
-              .slideY(begin: 0.1, end: 0),
-
-          const SizedBox(height: 32),
-
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "Log Out",
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.alertRed,
-              ),
-            ),
-          ).animate().fade(delay: 300.ms),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfileHeader() {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.bottomRight,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.primaryBlue, width: 2),
-              ),
-              child: const CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                  "https://avatars.githubusercontent.com/u/30585596?s=400&u=f003965be0a53be549780f833f556bed3a3e95b6&v=4",
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: AppColors.primaryBlue,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: const Icon(Icons.edit, color: Colors.white, size: 16),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Text(
-          "Madhur Chouhan",
-          style: GoogleFonts.poppins(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textPrimary,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "Premium Member",
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: AppColors.primaryBlue,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildOptionsList() {
-    final options = [
-      {
-        "icon": Icons.home_work,
-        "title": "Home Details",
-        "subtitle": "Manage rooms & devices",
-      },
-      {
-        "icon": Icons.notifications,
-        "title": "Notifications",
-        "subtitle": "Alerts & reminders",
-      },
-      {
-        "icon": Icons.security,
-        "title": "Privacy & Security",
-        "subtitle": "Passwords & 2FA",
-      },
-      {
-        "icon": Icons.help,
-        "title": "Help & Support",
-        "subtitle": "FAQs & Contact us",
-      },
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Column(
-        children: options.asMap().entries.map((entry) {
-          final index = entry.key;
-          final item = entry.value;
-
-          return Column(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+          child: Column(
             children: [
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 8,
-                ),
-                leading: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    item["icon"] as IconData,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                title: Text(
-                  item["title"] as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                subtitle: Text(
-                  item["subtitle"] as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                trailing: const Icon(
-                  Icons.chevron_right,
-                  color: AppColors.textSecondary,
-                ),
-                onTap: () {},
+              const ProfileHeader().animate().fade().scale(
+                begin: const Offset(0.9, 0.9),
+                duration: 400.ms,
+                curve: Curves.easeOutBack,
               ),
-              if (index < options.length - 1)
-                Divider(
-                  height: 1,
-                  color: AppColors.background,
-                  indent: 70,
-                  endIndent: 20,
+
+              const SizedBox(height: 32),
+
+              const ProfileStatsCard()
+                  .animate()
+                  .fade(delay: 100.ms)
+                  .slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 32),
+
+              ProfileMenuSection(
+                title: "ACCOUNT",
+                items: [
+                  MenuItemData(
+                    icon: Icons.person_outline_rounded,
+                    title: "Edit Profile",
+                    onTap: () {},
+                  ),
+                  MenuItemData(
+                    icon: Icons.kitchen_rounded,
+                    title: "Manage Appliances",
+                    onTap: () {},
+                  ),
+                ],
+              ).animate().fade(delay: 200.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 24),
+
+              ProfileMenuSection(
+                title: "FEATURES",
+                items: [
+                  MenuItemData(
+                    icon: Icons.settings_outlined,
+                    title: "Settings",
+                    onTap: () {},
+                  ),
+                  MenuItemData(
+                    icon: Icons.solar_power_outlined,
+                    title: "Solar Calculator",
+                    onTap: () {},
+                  ),
+                ],
+              ).animate().fade(delay: 300.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 24),
+
+              ProfileMenuSection(
+                title: "HELP & INFO",
+                items: [
+                  MenuItemData(
+                    icon: Icons.receipt_long_outlined,
+                    title: "How to read bill",
+                    onTap: () {},
+                  ),
+                  MenuItemData(
+                    icon: Icons.help_outline_rounded,
+                    title: "FAQs",
+                    onTap: () {},
+                  ),
+                  MenuItemData(
+                    icon: Icons.support_agent_rounded,
+                    title: "Contact Support",
+                    onTap: () {},
+                  ),
+                ],
+              ).animate().fade(delay: 400.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 24),
+
+              ProfileMenuSection(
+                title:
+                    null, // Legal has no title over it according to the design
+                items: [
+                  MenuItemData(
+                    icon: Icons.gavel_rounded,
+                    title: "Legal",
+                    onTap: () {},
+                  ),
+                ],
+              ).animate().fade(delay: 500.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 32),
+
+              LogoutButton(
+                onPressed: () {},
+              ).animate().fade(delay: 600.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 24),
+
+              Text(
+                "Version 2.4.0",
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.textSecondary.withAlpha(150),
                 ),
+              ).animate().fade(delay: 700.ms),
+
+              const SizedBox(height: 40),
             ],
-          );
-        }).toList(),
+          ),
+        ),
       ),
     );
   }

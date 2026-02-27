@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wattwise_app/feature/dashboard/widgets/quick_check_in_bottom_sheet.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -20,7 +21,7 @@ class DashboardScreen extends ConsumerWidget {
               const SizedBox(height: 28),
               _buildSectionTitle("Active Plan", showIndicator: true),
               const SizedBox(height: 16),
-              _buildActivePlanCard(),
+              _buildActivePlanCard(context),
               const SizedBox(height: 28),
               _buildSectionTitle("Action Items"),
               const SizedBox(height: 16),
@@ -64,7 +65,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              "Hello, Sarah",
+              "Hello, Madhur",
               style: GoogleFonts.inter(
                 fontSize: 24,
                 color: const Color(0xFF0F172A),
@@ -299,7 +300,7 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildActivePlanCard() {
+  Widget _buildActivePlanCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -407,7 +408,9 @@ class DashboardScreen extends ConsumerWidget {
             width: double.infinity,
             height: 44,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showQuickCheckInBottomSheet(context);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: const Color(0xFF1E60F2),

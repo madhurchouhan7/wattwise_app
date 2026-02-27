@@ -1,0 +1,163 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:wattwise_app/core/colors.dart';
+import 'package:wattwise_app/feature/bill/widgets/bill_header.dart';
+import 'package:wattwise_app/feature/bill/widgets/current_cycle_card.dart';
+import 'package:wattwise_app/feature/bill/widgets/bill_history_tile.dart';
+
+class BillScreen extends ConsumerWidget {
+  const BillScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const BillHeader().animate().fade().slideY(begin: -0.2, end: 0),
+
+              const SizedBox(height: 32),
+
+              const CurrentCycleCard()
+                  .animate()
+                  .fade(delay: 100.ms)
+                  .slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 32),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "History",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Last 6 months",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 16,
+                          color: AppColors.textSecondary,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ).animate().fade(delay: 200.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 16),
+
+              // Mock items as per UI design
+              const BillHistoryTile(
+                icon: Icons.wb_sunny_outlined,
+                iconColor: AppColors.solarAmber,
+                date: "July 2023",
+                usage: "520",
+                rate: "16.7",
+                amount: "\$98.20",
+                trend: "5%",
+                isTrendingUp: false,
+                isTrendNeutral: false,
+              ).animate().fade(delay: 300.ms).slideY(begin: 0.1, end: 0),
+
+              const BillHistoryTile(
+                icon: Icons.water_drop_outlined,
+                iconColor: AppColors.primaryBlue,
+                date: "June 2023",
+                usage: "480",
+                rate: "16.0",
+                amount: "\$92.15",
+                trend: "0%",
+                isTrendingUp: false,
+                isTrendNeutral: true,
+              ).animate().fade(delay: 400.ms).slideY(begin: 0.1, end: 0),
+
+              const BillHistoryTile(
+                icon: Icons.cloud_outlined,
+                iconColor: Colors.purpleAccent,
+                date: "May 2023",
+                usage: "455",
+                rate: "14.6",
+                amount: "\$88.40",
+                trend: "2%",
+                isTrendingUp: true,
+                isTrendNeutral: false,
+              ).animate().fade(delay: 500.ms).slideY(begin: 0.1, end: 0),
+
+              // Partial view of April
+              const BillHistoryTile(
+                icon: Icons.cloud_queue_rounded,
+                iconColor: Colors.grey,
+                date: "April 2023",
+                usage: "410",
+                rate: "13.6",
+                amount: "\$84.10",
+                trend: "1%",
+                isTrendingUp: true,
+                isTrendNeutral: false,
+              ).animate().fade(delay: 600.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(
+                height: 80,
+              ), // Extra space for FAB and bottom navbar
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton:
+          FloatingActionButton.extended(
+            onPressed: () {},
+            backgroundColor: const Color(0xFF1E60F2),
+            elevation: 8,
+            //shadowColor: const Color(0xFF1E60F2).withAlpha(100),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            icon: const Icon(Icons.add, color: Colors.white),
+            label: Text(
+              "Add Bill",
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ).animate().fade().scale(
+            delay: 600.ms,
+            duration: 300.ms,
+            curve: Curves.easeOutBack,
+          ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+}
