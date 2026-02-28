@@ -1,0 +1,8 @@
+Analyzing efficiency_plan_model.dart...
+
+  error - efficiency_plan_model.dart:7:7 - Missing concrete implementations of 'getter mixin _$EfficiencyPlanModel on Object.efficiencyScore', 'getter mixin _$EfficiencyPlanModel on Object.estimatedCurrentMonthlyCost', 'getter mixin _$EfficiencyPlanModel on Object.estimatedSavingsIfFollowed', 'getter mixin _$EfficiencyPlanModel on Object.keyActions', and 5 more. Try implementing the missing methods, or make the class abstract. - non_abstract_class_inherits_abstract_member
+  error - efficiency_plan_model.dart:24:7 - Missing concrete implementations of 'getter mixin _$EstimatedSavings on Object.percentage', 'getter mixin _$EstimatedSavings on Object.rupees', 'getter mixin _$EstimatedSavings on Object.units', and 'mixin _$EstimatedSavings on Object.toJson'. Try implementing the missing methods, or make the class abstract. - non_abstract_class_inherits_abstract_member
+  error - efficiency_plan_model.dart:36:7 - Missing concrete implementations of 'getter mixin _$KeyAction on Object.action', 'getter mixin _$KeyAction on Object.appliance', 'getter mixin _$KeyAction on Object.estimatedSaving', 'getter mixin _$KeyAction on Object.impact', and 2 more. Try implementing the missing methods, or make the class abstract. - non_abstract_class_inherits_abstract_member
+  error - efficiency_plan_model.dart:50:7 - Missing concrete implementations of 'getter mixin _$SlabAlert on Object.currentSlab', 'getter mixin _$SlabAlert on Object.isInDangerZone', 'getter mixin _$SlabAlert on Object.nextSlabAt', 'getter mixin _$SlabAlert on Object.unitsToNextSlab', and 2 more. Try implementing the missing methods, or make the class abstract. - non_abstract_class_inherits_abstract_member
+
+4 issues found.

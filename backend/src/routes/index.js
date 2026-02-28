@@ -9,8 +9,10 @@ const userRoutes = require('./user.routes');
 // Future routes can be added here, e.g.:
 // const applianceRoutes = require('./appliance.routes');
 // const billRoutes      = require('./bill.routes');
+const aiRoutes = require('./ai.routes');
 
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
+router.use('/ai', aiRoutes);
 
 module.exports = router;
